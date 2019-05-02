@@ -1,0 +1,31 @@
+---
+title: "STAT540-HW2-Problem1 & 2"
+author: "Yunyi Lin/Pei Zeng"
+date: "2/1/2018"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Problem1
+##a)  
+$g(z) = \frac{1}{1+e^{-z}}$
+Therefore,  
+$\frac{\partial(g(z))}{\partial(z)} = \frac{0-(-e^{-z})}{(1+e^{-z})^2} = \frac{1}{1+e^{-z}}(\frac{1+e^{-z}-1}{1+e^{-z}}) = g(z)(1-g(z))$
+
+##b)
+$NLL(\theta) = -logP(D\mid\theta) = \sum_{i=1}^{n}[-y^{(i)}logh_{\theta}(x^{(i)})-(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]$  
+$h_{\theta}(x^{(i)}) = g(\theta^Tx^{(i)}) = \frac{1}{1+e^{-\theta^Tx^{(i)}}}$  
+Let $z = \theta^Tx^{(i)}$  
+Then $\frac{\partial(NLL(\theta))}{\partial(\theta)} = \frac{\partial(NLL(\theta))}{\partial(z)}\frac{\partial(z)}{\partial(\theta)}$  
+$\frac{\partial(z)}{\partial(\theta)} = \frac{\partial(\theta^Tx^{(i)})}{\partial(\theta)} = x^{(i)}$  
+$\frac{\partial(NLL(\theta))}{\partial(z)} = \sum_{i=1}^{n}(-y^{(i)}\frac{(g(z)^{'})}{g(z)}-(1-y^{(i)})\frac{(1-g(z))^{'}}{1-g(z)}) = \sum_{i=1}^{n}(-y^{(i)}\frac{g(z)(1-g(z))}{g(z)}-(1-y^{(i)})\frac{g(z)(g(z)-1)}{(1-g(z))}) = \sum_{i=1}^{n}(-y^{(i)}+y^{(i)}g(z)-y^{(i)}g(z)+g(z)) = \sum_{i=1}^{n}(h_{\theta}(x^{(i)}-y^{(i)})$  
+$\frac{\partial(NLL(\theta))}{\partial(\theta)} = \sum_{i=1}^{n}(h_{\theta}(x^{(i)}-y^{(i)})x^{(i)}$
+
+##c)
+$H = X^TSX$  
+$S = diag(h_{\theta}(x^{(1)}(1-h_{\theta}(x^{(1)})),...,h_{\theta}(x^{(m)}(1-h_{\theta}(x^{(m)})))$  
+$0<h_{\theta}(x^{(i)}(1-h_{\theta}(x^{(i)}))<1$  
+$z^T_{1*d}H_{d*d}z_{d*1} = z^T_{1*d}(X^T_{d*m}S_{m*m}X_{m*d})z_{d*1} = (Xz)^TS(Xz) =$  
+$(\sum_{j=1}^{n}x_j^{(1)}z_j)^2S_{11}+,...,+(\sum_{j=1}^{n}x_j^{(m)}z_j)^2S_{mm} = \sum_{i=1}^{n}S_{ii}(\sum_{j=1}^{n}x_j^{(i)}z_j)^2$
